@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevReviews.API.Persistence;
+using DevReviews.API.Persistence.Repositories;
 using DevReviews.API.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,8 +31,11 @@ namespace DevReviews.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddSingleton<DevReviewsDbContext>();
+            var connectionString = Configuration.GetValue<string>("DevReviewsCn");
 
+            services.AddDbContext<DevReviewsDbContext>(o => o.UseSqlServer(connectionString));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddAutoMapper(typeof(ProductProfiles));
 
             services.AddControllers();

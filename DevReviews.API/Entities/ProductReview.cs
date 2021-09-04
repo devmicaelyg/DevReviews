@@ -4,14 +4,12 @@ namespace DevReviews.API.Entities
 {
     public class ProductReview
     {
-        public ProductReview(int id, string author, int rating, string comments, int productId)
+        public ProductReview(string author, int rating, string comments, int productId)
         {
-            this.Id = id;
-            this.Author = author;
-            this.Rating = rating;
-            this.Comments = comments;
-            this.ProductId = productId;
-            this.RegisteredAt = DateTime.Now;
+            Author = author;
+            Rating = rating;
+            Comments = comments;
+            ProductId = productId;
         }
         
         public int Id { get; private set; }
